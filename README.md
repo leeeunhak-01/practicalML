@@ -70,10 +70,11 @@ print("-" * 50)
 samplers = {
     "Original Data": None,
     "Tomek Links (Undersampling)": TomekLinks(sampling_strategy='auto'),
-    "CNN (Undersampling)": CondensedNearestNeighbour(sampling_strategy='auto', n_neighbors=3, random_state=42),
+    "CNN (Undersampling)": CondensedNearestNeighbour(sampling_strategy='auto', n_neighbors=1, random_state=42),
     "One-Sided Selection (Undersampling)": OneSidedSelection(n_neighbors=3, random_state=42),
-    "SMOTE (Oversampling)": SMOTE(sampling_strategy='auto', random_state=42),
-    "ADASYN (Oversampling)": ADASYN(sampling_strategy='auto', random_state=42)
+    # SMOTE와 ADASYN에 이웃 수(k)를 5로 직접 지정
+    "SMOTE (Oversampling)": SMOTE(sampling_strategy='auto', k_neighbors=3, random_state=42),
+    "ADASYN (Oversampling)": ADASYN(sampling_strategy='auto', n_neighbors=5, random_state=42)
 }
 
 # 결과 시각화를 위한 Figure 설정 (6개 플롯에 맞게 크기 조정)
@@ -121,4 +122,3 @@ print("=" * 60)
 for name, report in final_reports.items():
     print(f"\n--- {name} Model Performance ---")
     print(report)
-
